@@ -62,7 +62,7 @@ function Contact() {
 
         <div className="contact-content">
           <div className="contact-info fade-in-up">
-            <div className="contact-item">
+            {/* <div className="contact-item">
               <div className="contact-icon">
                 <i className="fas fa-phone"></i>
               </div>
@@ -70,7 +70,7 @@ function Contact() {
                 <h4>Phone</h4>
                 <a href="tel:+919370723326">Call</a>
               </div>
-            </div>
+            </div> */}
 
             <div className="contact-item">
               <div className="contact-icon">
