@@ -17,20 +17,21 @@ function Hero() {
               With a strong foundation in <strong>HTML, CSS, JavaScript,Python and React-js</strong>, I've worked on several projects 
               that highlight my ability to create responsive and user-friendly websites.
             </p> */}
-            {/* <div className="hero-buttons">
-              <a href="#contact" className="btn">Download CV</a>
-            </div> */}
+            <div className="hero-buttons">
+              <a href="#projects" className="btn">View Projects</a>
+              <a href="#contact" className="btn btn-outline">Contact Me</a>
+            </div>
             <div className="social-icons">
-              <a href="https://www.linkedin.com/in/rohanlakal" className="social-icon">
+              <a href="https://www.linkedin.com/in/rohanlakal" className="social-icon" target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer" aria-label="LinkedIn profile">
                 <i className="fab fa-linkedin"></i>
               </a>
-              <a href="https://github.com/rohanlakal" className="social-icon">
+              <a href="https://github.com/rohanlakal" className="social-icon" target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer" aria-label="GitHub profile">
                 <i className="fab fa-github"></i>
               </a>
-              <a href="https://x.com/rohan_lakal" className="social-icon">
+              <a href="https://x.com/rohan_lakal" className="social-icon" target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer" aria-label="X profile">
                 <i className="fab fa-twitter"></i>
               </a>
-              <a href="https://www.instagram.com/rohan_lakal" className="social-icon">
+              <a href="https://www.instagram.com/rohan_lakal" className="social-icon" target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer" aria-label="Instagram profile">
                 <i className="fab fa-instagram"></i>
               </a>
             </div>

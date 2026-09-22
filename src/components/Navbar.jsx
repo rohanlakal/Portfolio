@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Navbar.css';
 
-function Navbar() {
+function Navbar({ theme, onToggleTheme }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const scrollToSection = (id) => {
@@ -21,16 +21,7 @@ function Navbar() {
           </a>
         </div>
 
-        <button 
-          className={`hamburger ${isOpen ? 'active' : ''}`}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <ul className={`nav-menu ${isOpen ? 'active' : ''}`}>
+        <ul id="primary-navigation" className={`nav-menu ${isOpen ? 'active' : ''}`}>
           <li><a href="#home" onClick={() => scrollToSection('home')}>Home</a></li>
           <li><a href="#services" onClick={() => scrollToSection('services')}>Services</a></li>
           <li><a href="#skills" onClick={() => scrollToSection('skills')}>Skills</a></li>
@@ -38,6 +29,32 @@ function Navbar() {
           <li><a href="#projects" onClick={() => scrollToSection('projects')}>Projects</a></li>
           <li><a href="#contact" onClick={() => scrollToSection('contact')}>Contact</a></li>
         </ul>
+
+        <div className="nav-actions">
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={onToggleTheme}
+            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          >
+            <i className={`fas ${theme === 'light' ? 'fa-moon' : 'fa-sun'}`}></i>
+          </button>
+
+          <button
+            type="button"
+            className={`hamburger ${isOpen ? 'active' : ''}`}
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={isOpen}
+            aria-controls="primary-navigation"
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
       </div>
     </nav>
   );

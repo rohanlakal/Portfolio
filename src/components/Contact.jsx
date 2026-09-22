@@ -1,40 +1,65 @@
-
-import React, { useState } from 'react';
-
+import React, { useEffect, useRef, useState } from 'react';
 import './Contact.css';
 
-function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
+const emptyForm = {
+  name: '',
+  email: '',
+  subject: '',
+  message: ''
+};
 
-  const [submitted, setSubmitted] = useState(false);
+function Contact() {
+  const [formData, setFormData] = useState(emptyForm);
+  const [submitStatus, setSubmitStatus] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const submitLockRef = useRef(false);
+  const timeoutRef = useRef(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
   };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    if (submitLockRef.current) {
+      return;
+    }
 
-}
+    submitLockRef.current = true;
+    setIsSubmitting(true);
 
+    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`;
+    const mailtoLink = `mailto:rvlakal@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(body)}`;
 
+    window.location.href = mailtoLink;
+    setFormData(emptyForm);
+    setSubmitStatus('Opening your email app. Your form has been cleared.');
 
+    timeoutRef.current = setTimeout(() => {
+      submitLockRef.current = false;
+      setIsSubmitting(false);
+      setSubmitStatus('');
+    }, 8000);
+  };
 
   return (
     <section id="contact" className="contact">
       <div className="container">
         <h2 className="section-title">My Contact</h2>
-        
+
         <div className="contact-content">
           <div className="contact-info fade-in-up">
             <div className="contact-item">
@@ -63,33 +88,29 @@ const handleSubmit = (e) => {
               </div>
               <div className="contact-details">
                 <h4>Instagram</h4>
-                <a href="https://instagram.com/rohan_lakal" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a href="https://instagram.com/rohan_lakal" target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer">Instagram</a>
               </div>
             </div>
 
             <div className="contact-socials">
-              <a href="https://www.linkedin.com/in/rohanlakal" className="social-btn" title="LinkedIn">
+              <a href="https://www.linkedin.com/in/rohanlakal" className="social-btn" title="LinkedIn" target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer" aria-label="LinkedIn profile">
                 <i className="fab fa-linkedin"></i>
               </a>
-              <a href="https://github.com/rohanlakal" className="social-btn" title="GitHub">
+              <a href="https://github.com/rohanlakal" className="social-btn" title="GitHub" target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer" aria-label="GitHub profile">
                 <i className="fab fa-github"></i>
               </a>
-              <a href="https://x.com/rohan_lakal" className="social-btn" title="Twitter">
-                <i className="fab fa-twitter"></i>  
+              <a href="https://x.com/rohan_lakal" className="social-btn" title="Twitter" target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer" aria-label="X profile">
+                <i className="fab fa-twitter"></i>
               </a>
-              <a href="https://www.instagram.com/rohan_lakal" className="social-btn" title="Instagram">
+              <a href="https://www.instagram.com/rohan_lakal" className="social-btn" title="Instagram" target="_blank" rel="noopener noreferrer" referrerPolicy="no-referrer" aria-label="Instagram profile">
                 <i className="fab fa-instagram"></i>
               </a>
             </div>
-
-            {/* <a href="#" download className="btn download-cv">
-              <i className="fas fa-download"></i> Download CV
-            </a> */}
           </div>
 
           <form className="contact-form fade-in-up" onSubmit={handleSubmit}>
-            {submitted && <div className="success-msg">✓ Message sent successfully!</div>}
-            
+            {submitStatus && <div className="success-msg">{submitStatus}</div>}
+
             <div className="form-group">
               <input
                 type="text"
@@ -134,11 +155,14 @@ const handleSubmit = (e) => {
               ></textarea>
             </div>
 
-            <button type="submit" className="btn">Send Message</button>
+            <button type="submit" className="btn" disabled={isSubmitting}>
+              {isSubmitting ? 'Opening Email App...' : 'Send Message'}
+            </button>
           </form>
         </div>
       </div>
     </section>
   );
-};
+}
+
 export default Contact;

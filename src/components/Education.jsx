@@ -17,7 +17,6 @@ function Education() {
       degree: 'B.Tech in Computer Science and Engineering',
       period: '2026-2029'
     }
-
   ];
 
   return (
@@ -25,14 +24,14 @@ function Education() {
       <div className="container">
         <h2 className="section-title">My Education</h2>
         <div className="education-timeline">
-          {education.map((item, index) => (
+          {education.map((item) => (
             <div key={item.id} className="timeline-item fade-in-up">
               <div className="timeline-marker">
                 <div className="timeline-dot"></div>
               </div>
               <div className="timeline-content">
                 <h3>{item.school}</h3>
-                <p className="location">📍 {item.location}</p>
+                <p className="location">Location: {item.location}</p>
                 <p className="degree">{item.degree}</p>
                 {item.tech && <p className="tech">Technology: {item.tech}</p>}
                 <span className="period">{item.period}</span>
